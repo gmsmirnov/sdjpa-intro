@@ -1,0 +1,12 @@
+spring:
+  jpa:
+#    show-sql: true
+    properties:
+      hibernate:
+        show_sql: true
+        format_sql: true
+
+#Show bind values
+logging:
+  level:
+    org.hibernate.orm.jdbc.bind: TRACE
