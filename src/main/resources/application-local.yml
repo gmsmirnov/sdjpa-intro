@@ -4,6 +4,6 @@ spring:
     username: bookadmin
     password: mysql
   jpa:
-    database: mysql
+    #database: mysql
     hibernate:
       ddl-auto: update
