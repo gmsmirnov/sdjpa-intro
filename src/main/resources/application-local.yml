@@ -5,4 +5,7 @@ spring:
     password: mysql
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: validate
+  sql:
+    init:
+      mode: always
