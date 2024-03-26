@@ -10,7 +10,7 @@
     </parent>
     <groupId>guru.springframework</groupId>
     <artifactId>sdjpa-intro</artifactId>
-    <version>0.0.16</version>
+    <version>0.0.17</version>
     <name>sdjpa-intro</name>
     <description>Introduction to Spring Data JPA</description>
     <properties>
@@ -47,6 +47,18 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
+
+    <profiles>
+        <profile>
+            <id>h2</id>
+            <dependencies>
+                <dependency>
+                    <groupId>com.h2database</groupId>
+                    <artifactId>h2</artifactId>
+                </dependency>
+            </dependencies>
+        </profile>
+    </profiles>
 
     <build>
         <plugins>
