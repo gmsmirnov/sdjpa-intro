@@ -4,8 +4,10 @@ import guru.springframework.sdjpaintro.domain.Book;
 import guru.springframework.sdjpaintro.repository.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
+@Profile({"local", "default"})
 @Component
 public class DataInitializer implements CommandLineRunner {
     private final BookRepository bookRepository;
@@ -17,6 +19,8 @@ public class DataInitializer implements CommandLineRunner {
 
     @Override
     public void run(String... args) {
+        bookRepository.deleteAll();
+
         Book bookDDD = Book.builder()
                 .title("Domain Driven Design")
                 .isbn("123")
