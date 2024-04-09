@@ -9,5 +9,6 @@
 
     <include file="db/changelog/baseline-changelog.xml" />
     <include file="db/changelog/insert-book-changelog.xml" />
+    <include file="db/changelog/alter-book-changelog.xml" />
 
 </databaseChangeLog>
