@@ -10,7 +10,7 @@
     </parent>
     <groupId>guru.springframework</groupId>
     <artifactId>sdjpa-intro</artifactId>
-    <version>0.0.18</version>
+    <version>0.0.19</version>
     <name>sdjpa-intro</name>
     <description>Introduction to Spring Data JPA</description>
     <properties>
@@ -81,6 +81,9 @@
                     <url>jdbc:mysql://localhost:6603/bookdb?useUnicode=tru&amp;characterEncoding=UTF-8&amp;serverTimezone=UTC</url>
                     <username>bookadmin</username>
                     <password>mysql</password>
+                    <outputChangeLogFile>changelog.xml</outputChangeLogFile>
+                    <changeSetAuthor>gsmirnov</changeSetAuthor>
+                    <changelogSchemaName>bookdb</changelogSchemaName>
                 </configuration>
                 <dependencies>
                     <!--set up any dependencies for Liquibase to function in your
