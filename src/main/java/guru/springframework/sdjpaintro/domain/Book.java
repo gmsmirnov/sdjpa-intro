@@ -23,6 +23,7 @@ public class Book {
     private String title;
     private String isbn;
     private String publisher;
+    private Long authorId;
 
     @Override
     public boolean equals(Object o) {
