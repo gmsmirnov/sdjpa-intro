@@ -16,22 +16,20 @@ import java.util.Objects;
 @AllArgsConstructor
 @ToString
 @Entity
-public class Book {
+public class Author {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String title;
-    private String isbn;
-    private String publisher;
-    private Long authorId;
+    private String firstName;
+    private String lastName;
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
-        Book book = (Book) o;
-        return id != null && Objects.equals(id, book.id);
+        Author author = (Author) o;
+        return id != null && Objects.equals(id, author.id);
     }
 
     @Override

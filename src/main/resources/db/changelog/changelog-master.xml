@@ -7,8 +7,9 @@
         http://www.liquibase.org/xml/ns/pro
         http://www.liquibase.org/xml/ns/pro/liquibase-pro-4.6.xsd ">
 
-    <include file="db/changelog/baseline-changelog.xml" />
-    <include file="db/changelog/insert-book-changelog.xml" />
-    <include file="db/changelog/alter-book-changelog.xml" />
+    <include file="db/changelog/00_baseline-changelog.xml" />
+    <include file="db/changelog/01_insert-book-changelog.xml" />
+    <include file="db/changelog/02_alter-book-changelog.xml" />
+    <include file="db/changelog/03_create-author-table-changelog.xml" />
 
 </databaseChangeLog>
