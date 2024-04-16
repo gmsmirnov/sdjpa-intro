@@ -10,7 +10,7 @@
     </parent>
     <groupId>guru.springframework</groupId>
     <artifactId>sdjpa-intro</artifactId>
-    <version>0.0.24</version>
+    <version>0.0.25</version>
     <name>sdjpa-intro</name>
     <description>Introduction to Spring Data JPA</description>
     <properties>
@@ -98,6 +98,20 @@
                         <version>${mysql.version}</version>
                     </dependency>
                 </dependencies>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-clean-plugin</artifactId>
+                <version>3.3.2</version>
+                <executions>
+                    <execution>
+                        <id>pre-clean</id>
+                        <phase>initialize</phase>
+                        <goals>
+                            <goal>clean</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
