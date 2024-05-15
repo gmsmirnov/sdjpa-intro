@@ -22,21 +22,21 @@ public class AuthorDaoIntegrationTest {
     AuthorDao authorDao;
 
     @Test
-    void testGetAuthor() {
+    public void testGetAuthor() {
         Author author = authorDao.getById(1L);
 
         assertThat(author).isNotNull();
     }
 
     @Test
-    void testGetAuthorByName() {
+    public void testGetAuthorByName() {
         Author author = authorDao.findAuthorByName("josh", "bloch");
 
         assertThat(author).isNotNull();
     }
 
     @Test
-    void testSaveAuthor() {
+    public void testSaveAuthor() {
         Author author = Author.builder()
                 .firstName("rob")
                 .lastName("martin")
@@ -47,7 +47,7 @@ public class AuthorDaoIntegrationTest {
     }
 
     @Test
-    void testUpdateAuthor() {
+    public void testUpdateAuthor() {
         Author author = Author.builder()
                 .firstName("rob")
                 .lastName("m")
@@ -61,5 +61,21 @@ public class AuthorDaoIntegrationTest {
         Author updated = authorDao.getById(saved.getId());
 
         assertThat(updated.getLastName()).isEqualTo("martin");
+    }
+
+    @Test
+    public void testDeleteAuthor() {
+        Author author = Author.builder()
+                .firstName("rob")
+                .lastName("martin")
+                .build();
+        author = authorDao.saveNewAuthor(author);
+        assertThat(author.getId()).isNotNull();
+
+        authorDao.deleteAuthor(author);
+
+        Author deleted = authorDao.getById(author.getId());
+
+        assertThat(deleted).isNull();
     }
 }
