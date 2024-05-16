@@ -2,6 +2,7 @@ package guru.springframework.sdjpaintro.dao;
 
 import guru.springframework.sdjpaintro.domain.Author;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;
 
 import javax.sql.DataSource;
@@ -96,5 +97,9 @@ public class AuthorDaoImpl implements AuthorDao {
                 .firstName(rs.getString("first_name"))
                 .lastName(rs.getString("last_name"))
                 .build();
+    }
+
+    private RowMapper<Author> getRowMapper() {
+        return new AuthorMapper();
     }
 }
