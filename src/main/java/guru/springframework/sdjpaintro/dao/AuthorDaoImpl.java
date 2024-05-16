@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Objects;
 
 @Component
 public class AuthorDaoImpl implements AuthorDao {
@@ -34,7 +35,11 @@ public class AuthorDaoImpl implements AuthorDao {
 
     @Override
     public Author saveNewAuthor(Author author) {
-        return null;
+        jdbcTemplate.update("INSERT INTO author (first_name, last_name) VALUES (?, ?)",
+                author.getFirstName(), author.getLastName());
+        Long id = jdbcTemplate.queryForObject("SELECT LAST_INSERT_ID()", Long.class); // MySQL specific function
+        author.setId(id);
+        return author;
     }
 
     @Override

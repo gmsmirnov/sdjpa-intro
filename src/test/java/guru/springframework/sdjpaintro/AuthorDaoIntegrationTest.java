@@ -37,9 +37,10 @@ public class AuthorDaoIntegrationTest {
 
     @Test
     public void testSaveAuthor() {
+        // jdbc template rollbacks (transaction) while plain jdbc doesn't
         Author author = Author.builder()
-                .firstName("rob")
-                .lastName("martin")
+                .firstName("Rob")
+                .lastName("Martin")
                 .build();
         author = authorDao.saveNewAuthor(author);
 
