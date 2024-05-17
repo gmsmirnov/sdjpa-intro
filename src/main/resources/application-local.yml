@@ -12,3 +12,7 @@ spring:
   liquibase:
     user: bookadmin
     password: mysql
+
+logging:
+  level:
+    org.springframework.jdbc.core.JdbcTemplate: debug

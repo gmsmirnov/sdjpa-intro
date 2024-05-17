@@ -50,6 +50,8 @@ public class AuthorDaoImpl implements AuthorDao {
 
     @Override
     public void deleteAuthor(Author author) {
+        jdbcTemplate.update("DELETE FROM author WHERE id = ?",
+                author.getId());
     }
 
     private Author getAuthorFromResultSet(ResultSet rs) throws SQLException {
