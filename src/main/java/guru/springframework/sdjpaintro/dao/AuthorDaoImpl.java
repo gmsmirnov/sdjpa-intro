@@ -1,68 +1,45 @@
 package guru.springframework.sdjpaintro.dao;
 
 import guru.springframework.sdjpaintro.domain.Author;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityManagerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;
-
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.List;
-import java.util.Objects;
 
 @Component
 public class AuthorDaoImpl implements AuthorDao {
 
-    private final JdbcTemplate jdbcTemplate;
+    private final EntityManagerFactory emf;
 
     @Autowired
-    public AuthorDaoImpl(JdbcTemplate jdbcTemplate) {
-        this.jdbcTemplate = jdbcTemplate;
+    public AuthorDaoImpl(EntityManagerFactory emf) {
+        this.emf = emf;
     }
 
     @Override
     public Author getById(Long id) {
-        return jdbcTemplate.queryForObject("SELECT * FROM author WHERE id = ?", getRowMapper(), id);
+        return getEntityManager().find(Author.class, id);
     }
 
     @Override
     public Author findAuthorByName(String firstName, String lastName) {
-        return jdbcTemplate.queryForObject("SELECT * FROM author WHERE first_name = ? AND last_name = ?",
-                getRowMapper(),
-                firstName, lastName);
+        return null;
     }
 
     @Override
     public Author saveNewAuthor(Author author) {
-        jdbcTemplate.update("INSERT INTO author (first_name, last_name) VALUES (?, ?)",
-                author.getFirstName(), author.getLastName());
-        Long id = jdbcTemplate.queryForObject("SELECT LAST_INSERT_ID()", Long.class); // MySQL specific function
-        author.setId(id);
-        return author;
+        return null;
     }
 
     @Override
     public void updateAuthor(Author author) {
-        jdbcTemplate.update("UPDATE author SET first_name = ?, last_name = ? WHERE id = ?",
-                author.getFirstName(), author.getLastName(), author.getId());
     }
 
     @Override
     public void deleteAuthor(Author author) {
-        jdbcTemplate.update("DELETE FROM author WHERE id = ?",
-                author.getId());
     }
 
-    private Author getAuthorFromResultSet(ResultSet rs) throws SQLException {
-        return Author.builder()
-                .id(rs.getLong("id"))
-                .firstName(rs.getString("first_name"))
-                .lastName(rs.getString("last_name"))
-                .build();
-    }
-
-    private RowMapper<Author> getRowMapper() {
-        return new AuthorMapper();
+    private EntityManager getEntityManager() {
+        return emf.createEntityManager();
     }
 }
