@@ -11,6 +11,7 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.test.context.ActiveProfiles;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @ActiveProfiles("local")
@@ -78,6 +79,6 @@ public class AuthorDaoIntegrationTest {
         authorDao.deleteAuthor(author);
         Long id = author.getId();
 
-        assertThrows(EmptyResultDataAccessException.class, () -> authorDao.getById(id));
+        assertNull(authorDao.getById(id));
     }
 }
