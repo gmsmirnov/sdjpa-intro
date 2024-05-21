@@ -8,6 +8,8 @@ import jakarta.persistence.TypedQuery;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 @Component
 public class AuthorDaoImpl implements AuthorDao {
 
@@ -16,6 +18,16 @@ public class AuthorDaoImpl implements AuthorDao {
     @Autowired
     public AuthorDaoImpl(EntityManagerFactory emf) {
         this.emf = emf;
+    }
+
+    @Override
+    public List<Author> listAuthorByLastNameLike(String lastName) {
+        try (EntityManager em = getEntityManager()) {
+            Query query = em.createQuery("SELECT a FROM Author a WHERE a.lastName LIKE :lastName");
+            query.setParameter("lastName", "%" + lastName + "%");
+            List<Author> authors = query.getResultList();
+            return authors;
+        }
     }
 
     @Override
