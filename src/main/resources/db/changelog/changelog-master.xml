@@ -12,5 +12,6 @@
     <include file="db/changelog/02_alter-book-changelog.xml" />
     <include file="db/changelog/03_create-author-table-changelog.xml" />
     <include file="db/changelog/04_insert-author-changelog.xml"/>
+    <include file="db/changelog/05_insert-book-changelog.xml"/>
 
 </databaseChangeLog>
