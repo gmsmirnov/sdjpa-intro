@@ -5,6 +5,8 @@ import guru.springframework.sdjpaintro.domain.Author;
 import java.util.List;
 
 public interface AuthorDao {
+    Author findAuthorByNameCriteria(String firstName, String lastName);
+
     List<Author> findAll();
 
     List<Author> listAuthorByLastNameLike(String lastName);
