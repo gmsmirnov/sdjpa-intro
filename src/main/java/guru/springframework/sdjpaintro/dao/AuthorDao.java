@@ -5,6 +5,8 @@ import guru.springframework.sdjpaintro.domain.Author;
 import java.util.List;
 
 public interface AuthorDao {
+    Author findAuthorByNameNative(String firstName, String lastName);
+
     Author findAuthorByNameCriteria(String firstName, String lastName);
 
     List<Author> findAll();
