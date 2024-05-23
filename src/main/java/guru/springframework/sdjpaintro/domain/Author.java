@@ -13,7 +13,10 @@ import java.util.Objects;
 @AllArgsConstructor
 @ToString
 @Entity
-@NamedQuery(name = "author_find_all", query = "FROM Author")
+@NamedQueries(value = {
+        @NamedQuery(name = "author_find_all", query = "FROM Author"),
+        @NamedQuery(name = "find_by_name", query = "FROM Author a WHERE a.firstName = :firstName AND a.lastName = :lastName")
+})
 public class Author {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
