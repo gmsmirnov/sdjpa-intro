@@ -1,9 +1,6 @@
 package guru.springframework.sdjpaintro.domain;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.Hibernate;
 
@@ -16,6 +13,7 @@ import java.util.Objects;
 @AllArgsConstructor
 @ToString
 @Entity
+@NamedQuery(name = "author_find_all", query = "FROM Author")
 public class Author {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
