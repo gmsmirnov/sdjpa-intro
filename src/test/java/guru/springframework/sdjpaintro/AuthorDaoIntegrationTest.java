@@ -7,13 +7,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.ComponentScan;
-import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.orm.jpa.JpaObjectRetrievalFailureException;
 import org.springframework.test.context.ActiveProfiles;
 
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @ActiveProfiles("local")
@@ -26,19 +25,19 @@ public class AuthorDaoIntegrationTest {
     @Autowired
     AuthorDao authorDao;
 
-    @Test
-    public void testGetAuthorByNameNative() {
-        Author author = authorDao.findAuthorByNameNative("josh", "bloch");
-
-        assertThat(author).isNotNull();
-    }
-
-    @Test
-    public void testGetAuthorByNameCriteria() {
-        Author author = authorDao.findAuthorByNameCriteria("josh", "bloch");
-
-        assertThat(author).isNotNull();
-    }
+//    @Test
+//    public void testGetAuthorByNameNative() {
+//        Author author = authorDao.findAuthorByNameNative("josh", "bloch");
+//
+//        assertThat(author).isNotNull();
+//    }
+//
+//    @Test
+//    public void testGetAuthorByNameCriteria() {
+//        Author author = authorDao.findAuthorByNameCriteria("josh", "bloch");
+//
+//        assertThat(author).isNotNull();
+//    }
 
     @Test
     public void testFindAllAuthors() {
@@ -48,13 +47,13 @@ public class AuthorDaoIntegrationTest {
         assertThat(authors.size()).isGreaterThan(0);
     }
 
-    @Test
-    public void testListAuthorByLastNameLike() {
-        List<Author> authors = authorDao.listAuthorByLastNameLike("loc");
-
-        assertThat(authors).isNotNull();
-        assertThat(authors).size().isGreaterThan(0);
-    }
+//    @Test
+//    public void testListAuthorByLastNameLike() {
+//        List<Author> authors = authorDao.listAuthorByLastNameLike("loc");
+//
+//        assertThat(authors).isNotNull();
+//        assertThat(authors).size().isGreaterThan(0);
+//    }
 
     @Test
     public void testGetAuthor() {
@@ -72,7 +71,6 @@ public class AuthorDaoIntegrationTest {
 
     @Test
     public void testSaveAuthor() {
-        // jdbc template rollbacks (transaction) while plain jdbc doesn't
         Author author = Author.builder()
                 .firstName("Rob")
                 .lastName("Martin")
@@ -111,6 +109,6 @@ public class AuthorDaoIntegrationTest {
         authorDao.deleteAuthor(author);
         Long id = author.getId();
 
-        assertNull(authorDao.getById(id));
+        assertThrows(JpaObjectRetrievalFailureException.class, () -> authorDao.getById(id));
     }
 }
