@@ -2,6 +2,7 @@ package guru.springframework.sdjpaintro;
 
 import guru.springframework.sdjpaintro.dao.AuthorDao;
 import guru.springframework.sdjpaintro.domain.Author;
+import jakarta.persistence.EntityNotFoundException;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
@@ -11,6 +12,7 @@ import org.springframework.orm.jpa.JpaObjectRetrievalFailureException;
 import org.springframework.test.context.ActiveProfiles;
 
 import java.util.List;
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -67,6 +69,11 @@ public class AuthorDaoIntegrationTest {
         Author author = authorDao.findAuthorByName("josh", "bloch");
 
         assertThat(author).isNotNull();
+    }
+
+    @Test
+    public void testGetAuthorByName2() {
+        assertThrows(EntityNotFoundException.class, () -> authorDao.findAuthorByName("jo", "blo"));
     }
 
     @Test
