@@ -1,6 +1,7 @@
 package guru.springframework.sdjpaintro.repository;
 
 import guru.springframework.sdjpaintro.domain.Book;
+import org.h2.mvstore.db.MVDelegateIndex;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
@@ -24,6 +25,13 @@ class BookRepositoryTest {
 
     @Autowired
     BookRepository bookRepository;
+
+    @Test
+    public void testBookNativeQuery() {
+        Book book = bookRepository.findBookByTitleNativeQuery("effective java");
+
+        assertThat(book).isNotNull();
+    }
 
     @Test
     public void testBookWithQuery() {
