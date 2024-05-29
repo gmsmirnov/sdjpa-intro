@@ -9,6 +9,8 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.test.context.ActiveProfiles;
 
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Future;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -22,6 +24,14 @@ class BookRepositoryTest {
 
     @Autowired
     BookRepository bookRepository;
+
+    @Test
+    public void testBookFuture() throws ExecutionException, InterruptedException {
+        Future<Book> bookFuture = bookRepository.queryByTitle("effective java");
+        Book book = bookFuture.get();
+
+        assertNotNull(book);
+    }
 
     @Test
     public void testEmptyResultException() {
