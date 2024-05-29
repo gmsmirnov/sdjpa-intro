@@ -2,6 +2,8 @@ package guru.springframework.sdjpaintro.repository;
 
 import guru.springframework.sdjpaintro.domain.Book;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.lang.Nullable;
 
 import java.util.Optional;
@@ -19,4 +21,7 @@ public interface BookRepository extends JpaRepository<Book, Long> {
     Stream<Book> findAllByTitleNotNull();
 
     Future<Book> queryByTitle(String title);
+
+    @Query(value = "SELECT b FROM Book b WHERE b.title = :title")
+    Book findBookByTitleWithQuery(@Param(value = "title") String title);
 }
