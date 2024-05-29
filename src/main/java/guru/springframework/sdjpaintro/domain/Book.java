@@ -1,9 +1,6 @@
 package guru.springframework.sdjpaintro.domain;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.Hibernate;
 
@@ -16,6 +13,7 @@ import java.util.Objects;
 @AllArgsConstructor
 @ToString
 @Entity
+@NamedQuery(name = "Book.jpaNamed", query = "FROM Book b WHERE b.title = :title") // ClassName.methodName !!!Code convention!!!
 public class Book {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
