@@ -4,13 +4,17 @@ import guru.springframework.sdjpaintro.domain.Book;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class BookDaoJDBCTemplate implements BookDao {
     private final JdbcTemplate jdbcTemplate;
 
     public BookDaoJDBCTemplate(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
+    }
+
+    @Override
+    public List<Book> findAllBooks(int pageSize, int offset) {
+        return jdbcTemplate.query("SELECT * FROM bookdb.book LIMIT ? OFFSET ?", getBookMapper(), pageSize, offset);
     }
 
     @Override

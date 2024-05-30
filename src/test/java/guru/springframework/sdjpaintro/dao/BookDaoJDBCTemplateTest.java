@@ -30,6 +30,20 @@ class BookDaoJDBCTemplateTest {
     }
 
     @Test
+    public void testFindAllBooksByPage() {
+        List<Book> books = bookDao.findAllBooks(2, 3);
+
+        assertThat(books).size().isEqualTo(2);
+    }
+
+    @Test
+    public void testFindAllEmptyList() {
+        List<Book> books = bookDao.findAllBooks(100, 100);
+
+        assertThat(books).isEmpty();
+    }
+
+    @Test
     public void testFindAllBooks() {
         List<Book> books = bookDao.findAllBooks();
 

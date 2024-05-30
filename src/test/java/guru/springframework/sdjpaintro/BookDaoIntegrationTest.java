@@ -23,6 +23,13 @@ public class BookDaoIntegrationTest {
     BookDao bookDao;
 
     @Test
+    public void testFindAllByPage() {
+        List<Book> books = bookDao.findAllBooks(2, 3);
+
+        assertThat(books).size().isEqualTo(2);
+    }
+
+    @Test
     public void testFindAll() {
         List<Book> allBooks = bookDao.findAllBooks();
 

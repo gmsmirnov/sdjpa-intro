@@ -20,6 +20,16 @@ public class BookDaoImpl implements BookDao {
     }
 
     @Override
+    public List<Book> findAllBooks(int pageSize, int offset) {
+        try (EntityManager em = getEntityManager()) {
+            TypedQuery<Book> query = em.createQuery("SELECT b FROM Book b", Book.class)
+                    .setFirstResult(offset)
+                    .setMaxResults(pageSize);
+            return query.getResultList();
+        }
+    }
+
+    @Override
     public List<Book> findAllBooks() {
         try (EntityManager em = getEntityManager()) {
             TypedQuery<Book> query = em.createQuery("SELECT b FROM Book b", Book.class);
