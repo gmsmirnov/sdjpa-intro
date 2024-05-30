@@ -3,9 +3,12 @@ package guru.springframework.sdjpaintro.dao;
 import guru.springframework.sdjpaintro.domain.Book;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.Query;
 import jakarta.persistence.TypedQuery;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
 
 @Component
 public class BookDaoImpl implements BookDao {
@@ -14,6 +17,14 @@ public class BookDaoImpl implements BookDao {
     @Autowired
     public BookDaoImpl(EntityManagerFactory emf) {
         this.emf = emf;
+    }
+
+    @Override
+    public List<Book> findAllBooks() {
+        try (EntityManager em = getEntityManager()) {
+            TypedQuery<Book> query = em.createQuery("SELECT b FROM Book b", Book.class);
+            return query.getResultList();
+        }
     }
 
     @Override
