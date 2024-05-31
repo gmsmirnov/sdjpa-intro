@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 
-@Component
+@Component(value = "book_dao_impl")
 public class BookDaoImpl implements BookDao {
     private final EntityManagerFactory emf;
 
