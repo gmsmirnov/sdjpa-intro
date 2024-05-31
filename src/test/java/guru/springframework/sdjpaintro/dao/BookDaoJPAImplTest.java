@@ -8,6 +8,8 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.test.context.ActiveProfiles;
 
 import java.util.List;
@@ -23,6 +25,14 @@ class BookDaoJPAImplTest {
     @Autowired
     @Qualifier("book_dao_jpa")
     BookDao bookDao;
+
+    @Test
+    public void findAllBooksSorted() {
+        Pageable pageable = PageRequest.of(2, 2, Sort.by(Sort.Order.desc("title")));
+        List<Book> books = bookDao.findAllBooksSortByTitle(pageable);
+
+        assertThat(books).size().isEqualTo(2);
+    }
 
     @Test
     public void testFindAllBooksWithPageable() {
