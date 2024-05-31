@@ -1,6 +1,7 @@
 package guru.springframework.sdjpaintro.dao;
 
 import guru.springframework.sdjpaintro.domain.Book;
+import org.h2.mvstore.Page;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,8 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.dao.DataAccessException;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.context.ActiveProfiles;
 
@@ -28,6 +31,14 @@ class BookDaoJDBCTemplateTest {
     @BeforeEach
     public void setup() {
         bookDao = new BookDaoJDBCTemplate(jdbcTemplate);
+    }
+
+    @Test
+    public void findAllBooksSorted() {
+        Pageable pageable = PageRequest.of(2, 2, Sort.by(Sort.Order.desc("title")));
+        List<Book> books = bookDao.findAllBooksSortByTitle(pageable);
+
+        assertThat(books).size().isEqualTo(2);
     }
 
     @Test
