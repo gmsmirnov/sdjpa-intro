@@ -4,6 +4,7 @@ import guru.springframework.sdjpaintro.domain.Author;
 import guru.springframework.sdjpaintro.repository.AuthorRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,6 +18,11 @@ public class AuthorDaoImpl implements AuthorDao {
     @Autowired
     public AuthorDaoImpl(AuthorRepository authorRepository) {
         this.authorRepository = authorRepository;
+    }
+
+    @Override
+    public List<Author> findAllAuthorsByLastName(String lastName, Pageable pageable) {
+        return authorRepository.findAllByLastName(lastName, pageable).getContent();
     }
 
     @Override

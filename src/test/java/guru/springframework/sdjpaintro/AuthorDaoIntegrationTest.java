@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.orm.jpa.JpaObjectRetrievalFailureException;
 import org.springframework.test.context.ActiveProfiles;
 
@@ -26,6 +27,14 @@ public class AuthorDaoIntegrationTest {
 
     @Autowired
     AuthorDao authorDao;
+
+    @Test
+    public void findAllAuthorsByLastName() {
+        List<Author> authors = authorDao.findAllAuthorsByLastName("martin", PageRequest.of(0, 3));
+
+        assertThat(authors).isNotNull();
+        assertThat(authors).size().isEqualTo(3);
+    }
 
 //    @Test
 //    public void testGetAuthorByNameNative() {
