@@ -6,6 +6,7 @@ import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Query;
 import jakarta.persistence.TypedQuery;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -17,6 +18,16 @@ public class BookDaoImpl implements BookDao {
     @Autowired
     public BookDaoImpl(EntityManagerFactory emf) {
         this.emf = emf;
+    }
+
+    @Override
+    public List<Book> findAllBooks(Pageable pageable) {
+        try (EntityManager em = getEntityManager()) {
+            TypedQuery<Book> query = em.createQuery("SELECT b FROM Book b", Book.class);
+            query.setFirstResult((int) pageable.getOffset());
+            query.setMaxResults(pageable.getPageSize());
+            return query.getResultList();
+        }
     }
 
     @Override

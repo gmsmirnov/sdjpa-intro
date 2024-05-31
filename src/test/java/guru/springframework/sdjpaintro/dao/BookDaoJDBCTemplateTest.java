@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.dao.DataAccessException;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.context.ActiveProfiles;
 
@@ -27,6 +28,14 @@ class BookDaoJDBCTemplateTest {
     @BeforeEach
     public void setup() {
         bookDao = new BookDaoJDBCTemplate(jdbcTemplate);
+    }
+
+    @Test
+    public void testFindAllBooksWithPageable() {
+        PageRequest pageable = PageRequest.of(2, 2);
+        List<Book> books = bookDao.findAllBooks(pageable);
+
+        assertThat(books).size().isEqualTo(2);
     }
 
     @Test

@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.test.context.ActiveProfiles;
 
 import java.util.List;
@@ -21,6 +23,14 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class BookDaoIntegrationTest {
     @Autowired
     BookDao bookDao;
+
+    @Test
+    public void testFindAllWithPageable() {
+        Pageable pageable = PageRequest.of(2, 2);
+        List<Book> books = bookDao.findAllBooks(pageable);
+
+        assertThat(books).size().isEqualTo(2);
+    }
 
     @Test
     public void testFindAllByPage() {
