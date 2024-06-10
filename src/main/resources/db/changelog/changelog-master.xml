@@ -13,5 +13,6 @@
     <include file="db/changelog/03_create-author-table-changelog.xml" />
     <include file="db/changelog/04_insert-author-changelog.xml"/>
     <include file="db/changelog/05_insert-book-changelog.xml"/>
-
+    <include file="db/changelog/06_create_order.xml"/>
+    
 </databaseChangeLog>
