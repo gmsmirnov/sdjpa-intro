@@ -3,7 +3,9 @@ package guru.springframework.sdjpaintro.domain;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
+import org.hibernate.annotations.CreationTimestamp;
 
+import java.time.Instant;
 import java.util.Objects;
 
 @Getter
@@ -60,17 +62,21 @@ public class OrderHeader extends BaseEntity {
     @Column(name = "order_status", columnDefinition = "varchar")
     private OrderStatus orderStatus;
 
+    @CreationTimestamp
+    @Column(updatable = false)
+    private Instant createdDate;
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;
         OrderHeader that = (OrderHeader) o;
-        return Objects.equals(getCustomer(), that.getCustomer()) && Objects.equals(getShippingAddress(), that.getShippingAddress()) && Objects.equals(getBillToAddress(), that.getBillToAddress()) && getOrderStatus() == that.getOrderStatus();
+        return Objects.equals(getCustomer(), that.getCustomer()) && Objects.equals(getShippingAddress(), that.getShippingAddress()) && Objects.equals(getBillToAddress(), that.getBillToAddress()) && getOrderStatus() == that.getOrderStatus() && Objects.equals(getCreatedDate(), that.getCreatedDate());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), getCustomer(), getShippingAddress(), getBillToAddress(), getOrderStatus());
+        return Objects.hash(super.hashCode(), getCustomer(), getShippingAddress(), getBillToAddress(), getOrderStatus(), getCreatedDate());
     }
 }
