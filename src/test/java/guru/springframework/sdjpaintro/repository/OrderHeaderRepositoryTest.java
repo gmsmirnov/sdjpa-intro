@@ -62,5 +62,6 @@ class OrderHeaderRepositoryTest {
         OrderHeader fetched = maybeFetched.get();
         assertThat(fetched.getOrderStatus()).isEqualTo(NEW);
         assertThat(fetched.getCreatedDate()).isNotNull();
+        assertThat(fetched.getLastModifiedDate()).isNotNull();
     }
 }

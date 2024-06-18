@@ -16,5 +16,6 @@
     <include file="db/changelog/06_create_order.xml"/>
     <include file="db/changelog/07_alter-order_header-changelog.xml"/>
     <include file="db/changelog/08_alter-order_header-changelog.xml"/>
+    <include file="db/changelog/09_alter-order_header-changelog.xml"/>
 
 </databaseChangeLog>

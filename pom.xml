@@ -10,7 +10,7 @@
     </parent>
     <groupId>guru.springframework</groupId>
     <artifactId>sdjpa-intro</artifactId>
-    <version>0.0.70</version>
+    <version>0.0.71</version>
     <name>sdjpa-intro</name>
     <description>Introduction to Spring Data JPA</description>
     <properties>
