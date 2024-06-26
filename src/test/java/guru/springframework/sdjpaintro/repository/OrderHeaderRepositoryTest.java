@@ -2,6 +2,7 @@ package guru.springframework.sdjpaintro.repository;
 
 import guru.springframework.sdjpaintro.domain.Address;
 import guru.springframework.sdjpaintro.domain.OrderHeader;
+import guru.springframework.sdjpaintro.domain.OrderLine;
 import guru.springframework.sdjpaintro.domain.OrderStatus;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,31 @@ import static org.junit.jupiter.api.Assertions.*;
 class OrderHeaderRepositoryTest {
     @Autowired
     OrderHeaderRepository orderHeaderRepository;
+
+    @Test
+    public void testSaveOrderWithLine() {
+        OrderHeader oh = OrderHeader.builder()
+                .customer("New customer")
+                .shippingAddress(Address.builder()
+                        .address("shipping address")
+                        .build())
+                .billToAddress(Address.builder()
+                        .address("bill to address")
+                        .build())
+                .build();
+
+        OrderLine ol = OrderLine.builder()
+                .quantityOrdered(5)
+                .build();
+
+        oh.addOrderLine(ol);
+
+        OrderHeader saved = orderHeaderRepository.save(oh);
+
+        assertNotNull(saved);
+        assertNotNull(saved.getId());
+        assertThat(saved.getOrderLines()).size().isEqualTo(1);
+    }
 
     @Test
     public void testSaveEmbeddable() {

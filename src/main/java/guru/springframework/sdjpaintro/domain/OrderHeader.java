@@ -7,10 +7,14 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.Instant;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Objects;
 
 @Getter
 @Setter
+@ToString
 @SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
@@ -63,12 +67,37 @@ public class OrderHeader extends BaseEntity {
     @Column(name = "order_status", columnDefinition = "varchar")
     private OrderStatus orderStatus;
 
+    @ToString.Exclude
+    @Builder.Default
+    @OneToMany(mappedBy = "orderHeader",
+            fetch = FetchType.LAZY)
+    private List<OrderLine> orderLines = new ArrayList<>();
+
     @CreationTimestamp
     @Column(updatable = false)
     private Instant createdDate;
 
     @UpdateTimestamp
     private Instant lastModifiedDate;
+
+    public void addOrderLine(OrderLine orderLine) {
+        orderLines.add(orderLine);
+        orderLine.setOrderHeader(this);
+    }
+
+    public void removeOrderLine(OrderLine orderLine) {
+        orderLines.remove(orderLine);
+        orderLine.setOrderHeader(null);
+    }
+
+    public void removeAllOrderLines() {
+        Iterator<OrderLine> iterator = orderLines.iterator();
+        while (iterator.hasNext()) {
+            OrderLine next = iterator.next();
+            next.setOrderHeader(null);
+            iterator.remove();
+        }
+    }
 
     @Override
     public boolean equals(Object o) {
