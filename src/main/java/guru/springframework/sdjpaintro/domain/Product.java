@@ -1,13 +1,12 @@
 package guru.springframework.sdjpaintro.domain;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
+import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -22,6 +21,14 @@ public class Product extends BaseEntity {
     @Enumerated(EnumType.STRING)
     @Column(name = "product_status", columnDefinition = "varchar")
     private ProductStatus productStatus;
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "product_category",
+            joinColumns = @JoinColumn(name = "product_id"),
+            inverseJoinColumns = @JoinColumn(name = "category_id"))
+    @Builder.Default
+    @ToString.Exclude
+    private Set<Category> categories = new HashSet<>();
 
     @Override
     public boolean equals(Object o) {

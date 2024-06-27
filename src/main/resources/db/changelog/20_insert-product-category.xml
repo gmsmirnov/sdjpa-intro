@@ -1,0 +1,39 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:pro="http://www.liquibase.org/xml/ns/pro" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-latest.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+    <changeSet author="gsmirnov" id="1712657892358-20">
+        <sql>INSERT INTO product(description, product_status, created_date, last_modified_date)
+             VALUES ('PRODUCT1', 'NEW', now(), now())</sql>
+        <sql>INSERT INTO product(description, product_status, created_date, last_modified_date)
+             VALUES ('PRODUCT2', 'NEW', now(), now())</sql>
+        <sql>INSERT INTO product(description, product_status, created_date, last_modified_date)
+             VALUES ('PRODUCT3', 'NEW', now(), now())</sql>
+        <sql>INSERT INTO product(description, product_status, created_date, last_modified_date)
+             VALUES ('PRODUCT4', 'NEW', now(), now())</sql>
+        <sql>INSERT INTO category(description, created_date, last_modified_date)
+             VALUES ('CAT1', now(), now())</sql>
+        <sql>INSERT INTO category(description, created_date, last_modified_date)
+             VALUES ('CAT2', now(), now())</sql>
+        <sql>INSERT INTO category(description, created_date, last_modified_date)
+             VALUES ('CAT3', now(), now())</sql>
+        <sql>INSERT INTO product_category(product_id, category_id)
+             SELECT p.id, c.id
+             FROM product p,
+                  category c
+             WHERE p.description = 'PRODUCT1' AND c.description = 'CAT1'</sql>
+        <sql>INSERT INTO product_category(product_id, category_id)
+             SELECT p.id, c.id
+             FROM product p,
+                  category c
+             WHERE p.description = 'PRODUCT2' AND c.description = 'CAT1'</sql>
+        <sql>INSERT INTO product_category(product_id, category_id)
+             SELECT p.id, c.id
+             FROM product p,
+                  category c
+             WHERE p.description = 'PRODUCT1' AND c.description = 'CAT3'</sql>
+        <sql>INSERT INTO product_category(product_id, category_id)
+             SELECT p.id, c.id
+             FROM product p,
+                  category c
+             WHERE p.description = 'PRODUCT4' AND c.description = 'CAT3'</sql>
+    </changeSet>
+</databaseChangeLog>
