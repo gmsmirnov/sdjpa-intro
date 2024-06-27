@@ -70,7 +70,8 @@ public class OrderHeader extends BaseEntity {
     @ToString.Exclude
     @Builder.Default
     @OneToMany(mappedBy = "orderHeader",
-            fetch = FetchType.LAZY)
+            fetch = FetchType.LAZY,
+            cascade = CascadeType.ALL)
     private List<OrderLine> orderLines = new ArrayList<>();
 
     @CreationTimestamp

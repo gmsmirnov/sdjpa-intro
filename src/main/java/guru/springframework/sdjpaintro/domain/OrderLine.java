@@ -6,7 +6,11 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.ManyToOne;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.data.annotation.CreatedDate;
 
+import java.time.Instant;
 import java.util.Objects;
 
 @Getter
@@ -19,6 +23,11 @@ import java.util.Objects;
 public class OrderLine extends BaseEntity {
     private Integer quantityOrdered;
 
+    @CreationTimestamp
+    private Instant createdDate;
+
+    @UpdateTimestamp
+    private Instant lastModifiedDate;
 
     @ToString.Exclude
     @ManyToOne(fetch = FetchType.LAZY)
