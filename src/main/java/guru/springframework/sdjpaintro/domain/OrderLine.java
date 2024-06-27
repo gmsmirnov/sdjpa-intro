@@ -1,6 +1,5 @@
 package guru.springframework.sdjpaintro.domain;
 
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.ManyToOne;
@@ -8,7 +7,6 @@ import lombok.*;
 import lombok.experimental.SuperBuilder;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
-import org.springframework.data.annotation.CreatedDate;
 
 import java.time.Instant;
 import java.util.Objects;
@@ -33,17 +31,21 @@ public class OrderLine extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     private OrderHeader orderHeader;
 
+    @ToString.Exclude
+    @ManyToOne(fetch = FetchType.LAZY )
+    private Product product;
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;
         OrderLine orderLine = (OrderLine) o;
-        return Objects.equals(getQuantityOrdered(), orderLine.getQuantityOrdered());
+        return Objects.equals(getQuantityOrdered(), orderLine.getQuantityOrdered()) && Objects.equals(getCreatedDate(), orderLine.getCreatedDate()) && Objects.equals(getLastModifiedDate(), orderLine.getLastModifiedDate());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), getQuantityOrdered());
+        return Objects.hash(super.hashCode(), getQuantityOrdered(), getCreatedDate(), getLastModifiedDate());
     }
 }

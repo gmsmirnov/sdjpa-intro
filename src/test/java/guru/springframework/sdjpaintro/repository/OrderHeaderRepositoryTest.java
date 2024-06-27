@@ -1,9 +1,7 @@
 package guru.springframework.sdjpaintro.repository;
 
-import guru.springframework.sdjpaintro.domain.Address;
-import guru.springframework.sdjpaintro.domain.OrderHeader;
-import guru.springframework.sdjpaintro.domain.OrderLine;
-import guru.springframework.sdjpaintro.domain.OrderStatus;
+import guru.springframework.sdjpaintro.domain.*;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
@@ -22,6 +20,47 @@ import static org.junit.jupiter.api.Assertions.*;
 class OrderHeaderRepositoryTest {
     @Autowired
     OrderHeaderRepository orderHeaderRepository;
+
+    @Autowired
+    ProductRepository productRepository;
+
+    Product product;
+
+    @BeforeEach
+    void setUp() {
+        Product newProduct = Product.builder()
+                .description("test product")
+                .productStatus(ProductStatus.NEW)
+                .build();
+
+        product = productRepository.saveAndFlush(newProduct);
+    }
+
+    @Test
+    public void testSaveOrderWithProduct() {
+        OrderHeader oh = OrderHeader.builder()
+                .customer("New customer")
+                .shippingAddress(Address.builder()
+                        .address("shipping address")
+                        .build())
+                .billToAddress(Address.builder()
+                        .address("bill to address")
+                        .build())
+                .build();
+
+        OrderLine ol = OrderLine.builder()
+                .quantityOrdered(5)
+                .product(product)
+                .build();
+
+        oh.addOrderLine(ol);
+
+        OrderHeader saved = orderHeaderRepository.save(oh);
+
+        assertNotNull(saved);
+        assertNotNull(saved.getId());
+        assertThat(saved.getOrderLines()).size().isEqualTo(1);
+    }
 
     @Test
     public void testSaveOrderWithLine() {

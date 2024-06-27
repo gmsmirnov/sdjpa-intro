@@ -19,5 +19,8 @@
     <include file="db/changelog/09_alter-order_header-changelog.xml"/>
     <include file="db/changelog/10_create_order_line.xml"/>
     <include file="db/changelog/11_create_order_header_fk.xml"/>
+    <include file="db/changelog/12_create_product.xml"/>
+    <include file="db/changelog/13_alter_order_line.xml"/>
+    <include file="db/changelog/14_create_product_fk.xml"/>
 
 </databaseChangeLog>
