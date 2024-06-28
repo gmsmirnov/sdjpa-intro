@@ -52,6 +52,11 @@ class OrderHeaderRepositoryTest {
 
         oh.addOrderLine(ol);
 
+        OrderApproval approval = OrderApproval.builder()
+                .approvedBy("me")
+                .build();
+        oh.setOrderApproval(approval);
+
         OrderHeader saved = orderHeaderRepository.saveAndFlush(oh);
 
         orderHeaderRepository.deleteById(saved.getId());

@@ -67,7 +67,7 @@ public class OrderHeader extends BaseEntity {
     @Column(name = "order_status", columnDefinition = "varchar")
     private OrderStatus orderStatus;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.PERSIST, orphanRemoval = true)
     private OrderApproval orderApproval;
 
     @ToString.Exclude
