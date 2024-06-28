@@ -24,6 +24,9 @@ class OrderHeaderRepositoryTest {
     @Autowired
     ProductRepository productRepository;
 
+    @Autowired
+    OrderApprovalRepository orderApprovalRepository;
+
     Product product;
 
     @BeforeEach
@@ -52,6 +55,14 @@ class OrderHeaderRepositoryTest {
                 .quantityOrdered(5)
                 .product(product)
                 .build();
+
+        OrderApproval approval = OrderApproval.builder()
+                .approvedBy("me")
+                .build();
+
+        OrderApproval savedApproval = orderApprovalRepository.save(approval);
+
+        oh.setOrderApproval(savedApproval);
 
         oh.addOrderLine(ol);
 

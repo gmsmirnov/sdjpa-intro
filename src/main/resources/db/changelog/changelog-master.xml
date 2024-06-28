@@ -27,6 +27,9 @@
     <include file="db/changelog/17_create_pc_product_id_fk.xml"/>
     <include file="db/changelog/18_create_pc_category_id_fk.xml"/>
     <include file="db/changelog/19_alter_product.xml"/>
-    <include file="/db/changelog/20_insert-product-category.xml"/>
+    <include file="db/changelog/20_insert-product-category.xml"/>
+    <include file="db/changelog/21_create_order_approval.xml"/>
+    <include file="db/changelog/22_alter_order_header.xml"/>
+    <include file="db/changelog/23_create_order_approval_fk.xml"/>
 
 </databaseChangeLog>

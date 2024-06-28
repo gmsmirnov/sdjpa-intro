@@ -67,6 +67,9 @@ public class OrderHeader extends BaseEntity {
     @Column(name = "order_status", columnDefinition = "varchar")
     private OrderStatus orderStatus;
 
+    @OneToOne
+    private OrderApproval orderApproval;
+
     @ToString.Exclude
     @Builder.Default
     @OneToMany(mappedBy = "orderHeader",
