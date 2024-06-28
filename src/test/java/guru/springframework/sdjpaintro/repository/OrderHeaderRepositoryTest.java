@@ -1,6 +1,7 @@
 package guru.springframework.sdjpaintro.repository;
 
 import guru.springframework.sdjpaintro.domain.*;
+import jakarta.persistence.EntityNotFoundException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +38,29 @@ class OrderHeaderRepositoryTest {
                 .build();
 
         product = productRepository.saveAndFlush(newProduct);
+    }
+
+    @Test
+    public void testDeleteCascade() {
+        OrderHeader oh = OrderHeader.builder()
+                .customer("New customer")
+                .build();
+
+        OrderLine ol = OrderLine.builder()
+                .quantityOrdered(5)
+                .build();
+
+        oh.addOrderLine(ol);
+
+        OrderHeader saved = orderHeaderRepository.saveAndFlush(oh);
+
+        orderHeaderRepository.deleteById(saved.getId());
+        orderHeaderRepository.flush();
+
+        assertThrows(EntityNotFoundException.class, () -> {
+            OrderHeader fetched = orderHeaderRepository.getReferenceById(saved.getId());
+            fetched.getOrderLines(); // to throw EntityNotFoundException.class
+        });
     }
 
     @Test
