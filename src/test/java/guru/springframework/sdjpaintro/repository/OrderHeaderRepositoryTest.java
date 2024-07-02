@@ -43,7 +43,9 @@ class OrderHeaderRepositoryTest {
     @Test
     public void testDeleteCascade() {
         OrderHeader oh = OrderHeader.builder()
-                .customer("New customer")
+                .customer(Customer.builder()
+                        .name("New customer")
+                        .build())
                 .build();
 
         OrderLine ol = OrderLine.builder()
@@ -71,7 +73,9 @@ class OrderHeaderRepositoryTest {
     @Test
     public void testSaveOrderWithProduct() {
         OrderHeader oh = OrderHeader.builder()
-                .customer("New customer")
+                .customer(Customer.builder()
+                        .name("New customer")
+                        .build())
                 .shippingAddress(Address.builder()
                         .address("shipping address")
                         .build())
@@ -105,7 +109,9 @@ class OrderHeaderRepositoryTest {
     @Test
     public void testSaveOrderWithLine() {
         OrderHeader oh = OrderHeader.builder()
-                .customer("New customer")
+                .customer(Customer.builder()
+                        .name("New customer")
+                        .build())
                 .shippingAddress(Address.builder()
                         .address("shipping address")
                         .build())
@@ -130,7 +136,9 @@ class OrderHeaderRepositoryTest {
     @Test
     public void testSaveEmbeddable() {
         OrderHeader oh = OrderHeader.builder()
-                .customer("New customer")
+                .customer(Customer.builder()
+                        .name("New customer")
+                        .build())
                 .shippingAddress(Address.builder()
                         .address("shipping address")
                         .build())
@@ -149,7 +157,9 @@ class OrderHeaderRepositoryTest {
     @Test
     public void testSaveOrderHeader() {
         OrderHeader oh = OrderHeader.builder()
-                .customer("New customer")
+                .customer(Customer.builder()
+                        .name("New customer")
+                        .build())
                 .orderStatus(NEW)
                 .shippingAddress(Address.builder()
                         .address("shipping address")

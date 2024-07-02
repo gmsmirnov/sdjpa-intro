@@ -33,5 +33,9 @@
     <include file="db/changelog/23_create_order_approval_fk.xml"/>
     <include file="db/changelog/24_alter_order_approval.xml"/>
     <include file="db/changelog/25_create_order_header_fk.xml"/>
+    <include file="db/changelog/26_create_customer.xml"/>
+    <include file="db/changelog/27_alter_order_header.xml"/>
+    <include file="db/changelog/28_alter_order_header.xml"/>
+    <include file="db/changelog/29_alter_customer.xml"/>
 
 </databaseChangeLog>

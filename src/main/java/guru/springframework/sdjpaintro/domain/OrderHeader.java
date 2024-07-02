@@ -55,7 +55,6 @@ import java.util.Objects;
 
 })
 public class OrderHeader extends BaseEntity {
-    private String customer;
 
     @Embedded
     private Address shippingAddress;
@@ -69,6 +68,10 @@ public class OrderHeader extends BaseEntity {
 
     @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, mappedBy = "orderHeader")
     private OrderApproval orderApproval;
+
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "customer_id")
+    private Customer customer;
 
     @ToString.Exclude
     @Builder.Default

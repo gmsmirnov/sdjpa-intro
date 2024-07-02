@@ -21,7 +21,7 @@ class ProductRepositoryTest {
 
     @Test
     public void testGetCategory() {
-        Product product = productRepository.findByDescription("PRODUCT1");
+        Product product = productRepository.findByDescription("PRODUCT1").orElseThrow();
 
         assertNotNull(product);
         assertThat(product.getCategories()).size().isGreaterThan(1);
