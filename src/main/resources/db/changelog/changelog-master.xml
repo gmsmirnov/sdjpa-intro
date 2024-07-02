@@ -31,5 +31,7 @@
     <include file="db/changelog/21_create_order_approval.xml"/>
     <include file="db/changelog/22_alter_order_header.xml"/>
     <include file="db/changelog/23_create_order_approval_fk.xml"/>
+    <include file="db/changelog/24_alter_order_approval.xml"/>
+    <include file="db/changelog/25_create_order_header_fk.xml"/>
 
 </databaseChangeLog>

@@ -1,6 +1,8 @@
 package guru.springframework.sdjpaintro.domain;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 import org.hibernate.annotations.CreationTimestamp;
@@ -18,6 +20,10 @@ import java.util.Objects;
 @Entity
 public class OrderApproval extends BaseEntity {
     private String approvedBy;
+
+    @OneToOne
+    @JoinColumn(name = "order_header_id")
+    private OrderHeader orderHeader;
 
     @CreationTimestamp
     private Instant createdDate;

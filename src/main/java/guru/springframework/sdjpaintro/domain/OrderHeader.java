@@ -67,7 +67,7 @@ public class OrderHeader extends BaseEntity {
     @Column(name = "order_status", columnDefinition = "varchar")
     private OrderStatus orderStatus;
 
-    @OneToOne(cascade = CascadeType.PERSIST, orphanRemoval = true)
+    @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, mappedBy = "orderHeader")
     private OrderApproval orderApproval;
 
     @ToString.Exclude
@@ -83,6 +83,11 @@ public class OrderHeader extends BaseEntity {
 
     @UpdateTimestamp
     private Instant lastModifiedDate;
+
+    public void setOrderApproval(OrderApproval orderApproval) {
+        this.orderApproval = orderApproval;
+        orderApproval.setOrderHeader(this);
+    }
 
     public void addOrderLine(OrderLine orderLine) {
         orderLines.add(orderLine);
