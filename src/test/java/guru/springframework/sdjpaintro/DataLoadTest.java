@@ -38,6 +38,15 @@ public class DataLoadTest {
     ProductRepository productRepository;
 
     @Test
+    public void testLazyVsEager() {
+        OrderHeader oh = orderHeaderRepository.getReferenceById(135L);
+
+        log.info("Order id is: {}", oh.getId());
+        log.info("Customer name is: {}", oh.getCustomer().getName());
+
+    }
+
+    @Test
     @Disabled
     @Rollback(value = false)
     public void testDataLoader() {
