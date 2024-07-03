@@ -14,8 +14,10 @@ import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ActiveProfiles;
 
 import java.util.ArrayList;
+import java.util.IntSummaryStatistics;
 import java.util.List;
 import java.util.Random;
+import java.util.stream.Collectors;
 
 @Slf4j
 @ActiveProfiles(profiles = {"local"})
@@ -36,6 +38,17 @@ public class DataLoadTest {
 
     @Autowired
     ProductRepository productRepository;
+
+    @Test
+    public void testNPlusOneProblem() {
+        Customer customer = customerRepository.findCustomerByNameIgnoreCase(TEST_CUSTOMER).get();
+
+        IntSummaryStatistics totalOrdered = orderHeaderRepository.findAllByCustomer(customer).stream()
+                .flatMap(oh -> oh.getOrderLines().stream())
+                .collect(Collectors.summarizingInt(OrderLine::getQuantityOrdered));
+
+        log.info("Total ordered: {}", totalOrdered);
+    }
 
     @Test
     public void testLazyVsEager() {

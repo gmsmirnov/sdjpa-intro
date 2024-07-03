@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.Instant;
@@ -76,8 +78,9 @@ public class OrderHeader extends BaseEntity {
     @ToString.Exclude
     @Builder.Default
     @OneToMany(mappedBy = "orderHeader",
-            fetch = FetchType.LAZY,
+            fetch = FetchType.EAGER,
             cascade = CascadeType.ALL)
+    @Fetch(FetchMode.SUBSELECT)
     private List<OrderLine> orderLines = new ArrayList<>();
 
     @CreationTimestamp
