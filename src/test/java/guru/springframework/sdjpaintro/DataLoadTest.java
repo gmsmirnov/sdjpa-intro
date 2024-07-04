@@ -40,6 +40,22 @@ public class DataLoadTest {
     ProductRepository productRepository;
 
     @Test
+    public void testDBLock() {
+        Long id = 135L;
+        OrderHeader orderHeader = orderHeaderRepository.findById(id).get();
+
+        Address billTo = Address.builder()
+                .address("Bill me")
+                .build();
+        orderHeader.setBillToAddress(billTo);
+        // если откл autocommit в datagrip (workbench) и выполнить select for update для того же id,
+        // то зависнем в этом месте до того момента пока datagrip не отпустит запись (commit/rollback)
+        orderHeaderRepository.saveAndFlush(orderHeader);
+
+        log.info("Order was updated");
+    }
+
+    @Test
     public void testNPlusOneProblem() {
         Customer customer = customerRepository.findCustomerByNameIgnoreCase(TEST_CUSTOMER).get();
 
