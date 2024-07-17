@@ -19,29 +19,29 @@ public class DataInitializer implements CommandLineRunner {
 
     @Override
     public void run(String... args) {
-        bookRepository.deleteAll();
-
-        Book bookDDD = Book.builder()
-                .title("Domain Driven Design")
-                .isbn("123")
-                .publisher("RandomHouse")
-                .build();
-        System.out.println("Id: " + bookDDD.getId());
-        Book savedDDD = bookRepository.save(bookDDD);
-        System.out.println("Id: " + savedDDD.getId());
-
-        Book bookSIA = Book.builder()
-                .title("Spring in Action")
-                .isbn("234234")
-                .publisher("Mining")
-                .build();
-        System.out.println("Id: " + bookSIA.getId());
-        Book savedSIA = bookRepository.save(bookSIA);
-        System.out.println("Id: " + savedSIA.getId());
-
-        bookRepository.findAll().forEach(book -> {
-            System.out.println("Book id: " + book.getId());
-            System.out.println("Book title: " + book.getTitle());
-        });
+//        bookRepository.deleteAll();
+//
+//        Book bookDDD = Book.builder()
+//                .title("Domain Driven Design")
+//                .isbn("123")
+//                .publisher("RandomHouse")
+//                .build();
+//        System.out.println("Id: " + bookDDD.getId());
+//        Book savedDDD = bookRepository.save(bookDDD);
+//        System.out.println("Id: " + savedDDD.getId());
+//
+//        Book bookSIA = Book.builder()
+//                .title("Spring in Action")
+//                .isbn("234234")
+//                .publisher("Mining")
+//                .build();
+//        System.out.println("Id: " + bookSIA.getId());
+//        Book savedSIA = bookRepository.save(bookSIA);
+//        System.out.println("Id: " + savedSIA.getId());
+//
+//        bookRepository.findAll().forEach(book -> {
+//            System.out.println("Book id: " + book.getId());
+//            System.out.println("Book title: " + book.getTitle());
+//        });
     }
 }
