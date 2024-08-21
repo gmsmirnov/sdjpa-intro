@@ -33,7 +33,7 @@ public class OrderLine extends BaseEntity {
     private OrderHeader orderHeader;
 
     @ToString.Exclude
-    @ManyToOne(fetch = FetchType.LAZY )
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "product_id")
     private Product product;
 
